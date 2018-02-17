@@ -1,0 +1,71 @@
+{
+  "name": "@genus-machina/spice",
+  "version": "1.0.0",
+  "description": "Variety is the spice of life",
+  "bin": "./bin/spice.js",
+  "main": "src/index.js",
+  "scripts": {
+    "pretest": "eslint .",
+    "test": "nyc ava -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genus-machina/spice.git"
+  },
+  "author": "Simplex Rimor <simplex.rimor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/genus-machina/spice/issues"
+  },
+  "homepage": "https://github.com/genus-machina/spice#readme",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "configstore": "^3.1.1",
+    "fs-extra": "^5.0.0",
+    "jimp": "^0.2.28",
+    "jsdom": "^11.6.2",
+    "moment": "^2.20.1",
+    "string-pixel-width": "^1.5.0",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "dot-prop": "^4.2.0",
+    "eslint": "^4.17.0",
+    "eslint-config-semistandard": "^12.0.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nock": "^9.1.6",
+    "nyc": "^11.4.1",
+    "sinon": "^4.3.0"
+  },
+  "ava": {
+    "failWithoutAssertions": false
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "semistandard",
+      "plugin:import/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 8,
+      "sourceType": "script"
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": 2,
+      "import/no-unresolved": [
+        2,
+        {
+          "commonjs": true
+        }
+      ]
+    }
+  }
+}

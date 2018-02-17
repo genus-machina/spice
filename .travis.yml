@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- '8'
+deploy:
+  provider: npm
+  email: simplex.rimor@gmail.com
+  api_key:
+    secure: Xng0tyMD6921XPP7Ng/fhiwC0i4+z6wgLTjaGS+9O5/3NjH3mKj+v5RXYYZJdrDHmtsbnNJ1ISZxtFc+SBJp+YtfbBylpk7qyRZkIABheLNP/62WzENB3IWoCKbKbFOAvTunvEjI0canC/GKcs/CubtBNH5q/rV4zgoWOTf6JSURgQa85lLEZiK9SMltQxNGm9D5ZP/ZizdTdCvaEtGNVMIpNDo6jGURgLPHeiXZPZ1kvKm6kAWvJtz8ZTg/4MV1/foA24rdZWvVFb/qVmoJGIa0a5b4kXT+XnkQUeTYjr/beRaoGmSSFMeOnYRJqUfDIqNdRWl2Yiai0gah5FfZ0jnaNUeUOJBsjB5k0ZktEaHK50MIiu+6RJHdGvcSHU96z6x67zD1KHHIefZN94T5NaS7z8yuPZNVrPb8ROM3Bu1ppiPMmzGTT7M91cmonidtKvE2drZ7TKFiQIJiKYun4MB8+VuO6KmRnlhebwBWetKOeG75a7eMk2FK4Rj6OfPgrARfVldbQBg29MytgZRntmljEzOUvS97M55q1zb0SHpkQ3SzSg5TAVXjP6eg9Dq1RyTSqee9Cj7we8F9D2/qt88BlqBqo9W7knejEI+AI5i/8B3byfsSB692zeKpJ2qbbZtglHfb/RDUVE2R7JCgBTBYGoDqeXVC4+ToXYp29Fo=
+  on:
+    branch: master
+    tags: true
+    repo: genus-machina/spice
