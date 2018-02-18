@@ -5,7 +5,8 @@
   "bin": "./bin/spice.js",
   "main": "src/index.js",
   "scripts": {
-    "pretest": "eslint .",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
     "test": "nyc ava -v"
   },
   "repository": {
@@ -29,6 +30,7 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "@genus-machina/eslint-plugin-node": "^1.0.2",
     "ava": "^0.25.0",
     "dot-prop": "^4.2.0",
     "eslint": "^4.17.0",
@@ -46,26 +48,8 @@
     "failWithoutAssertions": false
   },
   "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
     "extends": [
-      "semistandard",
-      "plugin:import/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 8,
-      "sourceType": "script"
-    },
-    "rules": {
-      "import/no-extraneous-dependencies": 2,
-      "import/no-unresolved": [
-        2,
-        {
-          "commonjs": true
-        }
-      ]
-    }
+      "plugin:@genus-machina/node/recommended"
+    ]
   }
 }
