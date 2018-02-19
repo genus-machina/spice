@@ -71,7 +71,7 @@ class XKCD extends Provider {
   constructor (config) {
     super('xkcd', config, new HttpContent(BASE_URL));
 
-    const state = config.get('state.dir');
+    const state = config.get('state.directory');
     this.set('image', path.join(state, 'xkcd.png'));
   }
 

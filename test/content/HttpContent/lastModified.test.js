@@ -29,6 +29,11 @@ test('The last modified header is used as the last modified date', async (test) 
   test.is(lastModified, date.toISOString());
 });
 
-test('An error is thrown if no last modified header is available', async (test) => {
-  await test.throws(test.context.http.lastModified(), 'The server did not provide a Last-Modified header');
+test('When a last modified header is not available the current time is used', async (test) => {
+  const now = moment();
+  const lastModified = await test.context.http.lastModified();
+
+  const after = now.clone().add(1, 'minute').toISOString();
+  const before = now.clone().subtract(1, 'minute').toISOString();
+  test.true(lastModified > before && lastModified < after);
 });

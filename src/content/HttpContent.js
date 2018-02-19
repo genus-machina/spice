@@ -5,7 +5,7 @@ function parseLastModified (response) {
   const lastModified = response.headers['last-modified'];
 
   if (!lastModified) {
-    throw new Error('The server did not provide a Last-Modified header');
+    return moment().toISOString();
   }
 
   return moment(lastModified, moment.RFC_2822, true).toISOString();

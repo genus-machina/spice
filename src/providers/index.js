@@ -4,20 +4,21 @@ const os = require('os');
 const path = require('path');
 const project = require('../../package.json');
 
-const STATE_DIR = path.join(os.homedir(), '.spice');
+const STATE_DIRECTORY = path.join(os.homedir(), '.spice');
 
 const config = new Configstore(
   project.name,
   {
     state: {
-      dir: STATE_DIR
+      directory: STATE_DIRECTORY
     }
   }
 );
 
 const providers = [
+  require('./BrainyQuote'),
   require('./XKCD')
 ];
 
-fs.ensureDirSync(STATE_DIR);
+fs.ensureDirSync(STATE_DIRECTORY);
 module.exports = providers.map((Provider) => new Provider(config));

@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const MockConfig = require('../helpers/MockConfig');
 const moment = require('moment');
 const nock = require('nock');
 const path = require('path');
@@ -9,20 +8,20 @@ const XKCD = require('../../../src/providers/XKCD');
 const wallpaper = require('../../../src/providers/util/wallpaper');
 
 const { rfc2822 } = require('../../content/helpers/dates');
+const { setupProviderTest } = require('../helpers/providers');
 
 const BASE_URL = 'https://xkcd.com';
 const IMAGE_DESCRIPTION = 'this is a test image';
 const IMAGE_FILE = path.join(__dirname, 'fixtures', 'test.png');
 const IMAGE_TITLE = 'test title';
 
-test.beforeEach(async (test) => {
+setupProviderTest({
+  factory: (config) => new XKCD(config),
+  test
+});
+
+test.beforeEach((test) => {
   test.context.sandbox = sinon.sandbox.create();
-  test.context.temp = await fs.mkdtemp('xkcd-test');
-
-  test.context.config = new MockConfig();
-  test.context.config.set('state.dir', test.context.temp);
-
-  test.context.xkcd = new XKCD(test.context.config);
   test.context.sandbox.stub(wallpaper, 'set');
 
   nock.disableNetConnect();
@@ -50,35 +49,33 @@ test.beforeEach(async (test) => {
     .reply(200, () => fs.createReadStream(IMAGE_FILE));
 });
 
-test.always.afterEach(async (test) => {
-  await fs.remove(test.context.temp);
+test.always.afterEach((test) => {
   test.context.sandbox.restore();
-
   nock.cleanAll();
   nock.enableNetConnect();
 });
 
 test.serial('Invoking the provider creates a local image', async (test) => {
-  const image = path.join(test.context.temp, 'xkcd.png');
+  const image = path.join(test.context.stateDirectory, 'xkcd.png');
 
-  test.is(test.context.xkcd.get('image'), image);
-  await test.context.xkcd.invoke();
+  test.is(test.context.provider.get('image'), image);
+  await test.context.provider.invoke();
 
   const exists = (await fs.stat(image)).isFile();
   test.true(exists);
 });
 
 test.serial('Invoking the provider updates the latest content', async (test) => {
-  let ready = await test.context.xkcd.ready();
+  let ready = await test.context.provider.ready();
   test.true(ready);
-  await test.context.xkcd.invoke();
+  await test.context.provider.invoke();
 
-  ready = await test.context.xkcd.ready();
+  ready = await test.context.provider.ready();
   test.false(ready);
 });
 
 test.serial('Invoking the provider sets the desktop wallpaper', async (test) => {
-  const image = test.context.xkcd.get('image');
-  await test.context.xkcd.invoke();
+  const image = test.context.provider.get('image');
+  await test.context.provider.invoke();
   sinon.assert.calledWithExactly(wallpaper.set, image);
 });
