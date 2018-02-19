@@ -1,7 +1,7 @@
 const HttpContent = require('../content/HttpContent');
-const lists = require('./util/lists');
 const notifications = require('./util/notifications');
 const Provider = require('./Provider');
+const sample = require('lodash/sample');
 const zipWith = require('lodash/zipWith');
 
 const { JSDOM } = require('jsdom');
@@ -21,7 +21,7 @@ class BrainyQuote extends Provider {
       (author, quote) => `"${quote.textContent}" \u2014 ${author.textContent}`
     );
 
-    await notifications.notify(lists.random(quotes));
+    await notifications.notify(sample(quotes));
     await super.invoke();
   }
 }

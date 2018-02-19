@@ -1,5 +1,7 @@
 /* istanbul ignore file */
+const map = require('lodash/map');
 const path = require('path');
+const replace = require('lodash/replace');
 
 const { exec } = require('child_process');
 const { promisify } = require('util');
@@ -19,7 +21,7 @@ const applications = [
 
 exports.set = async (image) => {
   const application = applications[0];
-  const params = application.set.map((part) => part.replace('%s', path.resolve(image)));
+  const params = map(application.set, (part) => replace(part, '%s', path.resolve(image)));
   const command = [ application.command ].concat(params).join(' ');
   await run(command);
 };

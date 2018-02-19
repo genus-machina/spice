@@ -1,5 +1,5 @@
 const BrainyQuote = require('../../../src/providers/BrainyQuote');
-const lists = require('../../../src/providers/util/lists');
+const includes = require('lodash/includes');
 const moment = require('moment');
 const notifications = require('../../../src/providers/util/notifications');
 const sinon = require('sinon');
@@ -37,7 +37,6 @@ test.beforeEach((test) => {
     .resolves(now.toISOString());
 
   test.context.notify = test.context.sandbox.stub(notifications, 'notify').resolves();
-  test.context.random = test.context.sandbox.stub(lists, 'random').callsFake((items) => items[0]);
 });
 
 test.always.afterEach((test) => {
@@ -45,9 +44,14 @@ test.always.afterEach((test) => {
 });
 
 test('Invoking the provider creates a notification with a random quote', async (test) => {
+  const quotes = [
+    '"This is the first quote." \u2014 Thing One',
+    '"This is the second quote." \u2014 Thing Two'
+  ];
+
   await test.context.provider.invoke();
   sinon.assert.calledWithExactly(test.context.getContent);
   sinon.assert.calledWithExactly(test.context.getLastModified);
-  sinon.assert.calledWithExactly(test.context.random, sinon.match.array);
-  sinon.assert.calledWithExactly(test.context.notify, '"This is the first quote." \u2014 Thing One');
+  sinon.assert.calledWithExactly(test.context.notify, sinon.match.string);
+  test.true(includes(quotes, test.context.notify.firstCall.args[0]));
 });

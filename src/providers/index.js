@@ -1,5 +1,6 @@
 const Configstore = require('configstore');
 const fs = require('fs-extra');
+const map = require('lodash/map');
 const os = require('os');
 const path = require('path');
 const project = require('../../package.json');
@@ -21,4 +22,4 @@ const providers = [
 ];
 
 fs.ensureDirSync(STATE_DIRECTORY);
-module.exports = providers.map((Provider) => new Provider(config));
+module.exports = map(providers, (Provider) => new Provider(config));
