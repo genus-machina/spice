@@ -3,7 +3,7 @@ const test = require('ava');
 
 const { setupProviderTest } = require('../helpers/providers');
 
-const testProviderInterface = setupProviderTest({
+const { testProviderInterface } = setupProviderTest({
   factory: (config) => new BrainyQuote(config),
   test
 });

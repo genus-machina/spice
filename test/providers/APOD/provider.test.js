@@ -1,11 +1,11 @@
+const APOD = require('../../../src/providers/APOD');
 const test = require('ava');
-const XKCD = require('../../../src/providers/XKCD');
 
 const { setupProviderTest } = require('../helpers/providers');
 
 const { testProviderInterface } = setupProviderTest({
-  factory: (config) => new XKCD(config),
+  factory: (config) => new APOD(config),
   test
 });
 
-testProviderInterface('xkcd');
+testProviderInterface('apod');

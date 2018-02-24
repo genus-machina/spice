@@ -30,8 +30,8 @@ test('The last modified header is used as the last modified date', async (test) 
 });
 
 test('When a last modified header is not available the current time is used', async (test) => {
-  const now = moment();
   const lastModified = await test.context.http.lastModified();
+  const now = moment();
 
   const after = now.clone().add(1, 'minute').toISOString();
   const before = now.clone().subtract(1, 'minute').toISOString();

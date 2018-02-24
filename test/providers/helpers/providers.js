@@ -4,6 +4,7 @@ const moment = require('moment');
 const os = require('os');
 const path = require('path');
 const sinon = require('sinon');
+const wallpaper = require('../../../src/providers/util/wallpaper');
 
 function testProviderInterface (test, providerName) {
   test('The provider has a name', (test) => {
@@ -51,6 +52,39 @@ function testProviderInterface (test, providerName) {
   });
 }
 
+function testWallpaperProvider (test, imageName) {
+  test.serial('Invoking the provider creates a local image', async (test) => {
+    const image = path.join(test.context.stateDirectory, imageName);
+
+    test.is(test.context.provider.get('image'), image);
+    await test.context.provider.invoke();
+
+    const exists = (await fs.stat(image)).isFile();
+    test.true(exists);
+  });
+
+  test.serial('Invoking the provider updates the latest content', async (test) => {
+    let ready = await test.context.provider.ready();
+    test.true(ready);
+    await test.context.provider.invoke();
+
+    ready = await test.context.provider.ready();
+    test.false(ready);
+  });
+
+  test.serial('Invoking the provider sets the desktop wallpaper', async (test) => {
+    const image = test.context.provider.get('image');
+    const setWallpaper = sinon.stub(wallpaper, 'set');
+
+    try {
+      await test.context.provider.invoke();
+      sinon.assert.calledWithExactly(setWallpaper, image);
+    } finally {
+      setWallpaper.restore();
+    }
+  });
+}
+
 exports.setupProviderTest = ({factory, test}) => {
   test.beforeEach(async (test) => {
     test.context.config = new MockConfig();
@@ -64,5 +98,8 @@ exports.setupProviderTest = ({factory, test}) => {
     await fs.remove(test.context.stateDirectory);
   });
 
-  return testProviderInterface.bind(null, test);
+  return {
+    testProviderInterface: testProviderInterface.bind(null, test),
+    testWallpaperProvider: testWallpaperProvider.bind(null, test)
+  };
 };
