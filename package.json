@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Variety is the spice of life",
   "bin": "./bin/spice.js",
-  "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
@@ -28,7 +27,6 @@
     "jsdom": "^11.6.2",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
-    "string-pixel-width": "^1.5.0",
     "yargs": "^11.0.0"
   },
   "devDependencies": {
