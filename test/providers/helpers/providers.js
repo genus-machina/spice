@@ -53,6 +53,14 @@ function testProviderInterface (test, providerName) {
 }
 
 function testWallpaperProvider (test, imageName) {
+  test.beforeEach((test) => {
+    test.context.setWallpaper = sinon.stub(wallpaper, 'set');
+  });
+
+  test.always.afterEach((test) => {
+    test.context.setWallpaper.restore();
+  });
+
   test.serial('Invoking the provider creates a local image', async (test) => {
     const image = path.join(test.context.stateDirectory, imageName);
 
@@ -74,14 +82,8 @@ function testWallpaperProvider (test, imageName) {
 
   test.serial('Invoking the provider sets the desktop wallpaper', async (test) => {
     const image = test.context.provider.get('image');
-    const setWallpaper = sinon.stub(wallpaper, 'set');
-
-    try {
-      await test.context.provider.invoke();
-      sinon.assert.calledWithExactly(setWallpaper, image);
-    } finally {
-      setWallpaper.restore();
-    }
+    await test.context.provider.invoke();
+    sinon.assert.calledWithExactly(test.context.setWallpaper, image);
   });
 }
 

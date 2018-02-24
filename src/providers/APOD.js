@@ -21,7 +21,7 @@ class APOD extends Provider {
     super('apod', config, new APODContent());
 
     const state = config.get('state.directory');
-    this.set('image', path.join(state, 'apod.jpg'));
+    this.set('image', path.join(state, 'apod.png'));
   }
 
   async invoke () {

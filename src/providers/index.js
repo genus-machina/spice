@@ -19,6 +19,7 @@ const config = new Configstore(
 const providers = [
   require('./APOD'),
   require('./BrainyQuote'),
+  require('./Wikimedia'),
   require('./XKCD')
 ];
 

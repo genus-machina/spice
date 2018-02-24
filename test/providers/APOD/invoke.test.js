@@ -58,4 +58,4 @@ test.always.afterEach((test) => {
   nock.enableNetConnect();
 });
 
-testWallpaperProvider('apod.jpg');
+testWallpaperProvider('apod.png');
