@@ -3,8 +3,8 @@ const providers = require('../../src/providers');
 const sample = require('lodash/sample');
 
 const shouldInvoke = (probability) => {
-  if (!probability) {
-    return false;
+  if (probability === undefined) {
+    return true;
   }
 
   const roll = Math.random();
@@ -16,9 +16,14 @@ exports.description = 'Invoke a provider';
 
 exports.builder = {
   probability: {
-    alias: 'p',
+    alias: 'P',
     description: 'The probability that the invocation will run',
     type: 'number'
+  },
+  provider: {
+    alias: 'p',
+    description: 'The provider that should be invoked',
+    type: 'string'
   }
 };
 
