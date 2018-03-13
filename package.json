@@ -1,6 +1,6 @@
 {
   "name": "@genus-machina/spice",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Variety is the spice of life",
   "bin": "./bin/spice.js",
   "scripts": {
