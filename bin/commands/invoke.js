@@ -9,7 +9,7 @@ const shouldInvoke = (probability) => {
 
   const roll = Math.random();
   return roll < probability;
-}
+};
 
 exports.command = 'invoke [options] [provider]';
 exports.description = 'Invoke a provider';

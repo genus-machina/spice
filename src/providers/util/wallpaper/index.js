@@ -7,7 +7,12 @@ const BLACK = 0x0;
 const BORDER_X = 100;
 const BORDER_Y = 30;
 
-module.exports = require('./linux');
+/* istanbul ignore next */
+if (process.platform === 'darwin') {
+  module.exports = require('./macos');
+} else {
+  module.exports = require('./linux');
+}
 
 module.exports.create = async (image, title, description) => {
   const descriptionFont = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
