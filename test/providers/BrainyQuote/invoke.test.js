@@ -45,8 +45,8 @@ test.always.afterEach((test) => {
 
 test('Invoking the provider creates a notification with a random quote', async (test) => {
   const quotes = [
-    '"This is the first quote." \u2014 Thing One',
-    '"This is the second quote." \u2014 Thing Two'
+    'This is the first quote. \u2014 Thing One',
+    'This is the second quote. \u2014 Thing Two'
   ];
 
   await test.context.provider.invoke();
