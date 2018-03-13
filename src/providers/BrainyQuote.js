@@ -18,7 +18,7 @@ class BrainyQuote extends Provider {
     const quotes = zipWith(
       Array.from(html.window.document.querySelectorAll('a[title="view author"]').values()),
       Array.from(html.window.document.querySelectorAll('a[title="view quote"]').values()),
-      (author, quote) => `"${quote.textContent}" \u2014 ${author.textContent}`
+      (author, quote) => `${quote.textContent} \u2014 ${author.textContent}`
     );
 
     await notifications.notify(sample(quotes));
